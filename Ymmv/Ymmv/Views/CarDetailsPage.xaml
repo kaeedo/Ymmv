@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ymmv.Views.CarDetailsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Ymmv.ViewModels"
+             xmlns:model="clr-namespace:Ymmv.Models" 
+             xmlns:cd="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms">
+    <ContentPage.Content>
+        <cd:CoordinatorLayout InitialExpansionState="Expanded">
+            <cd:CoordinatorLayout.TopView>
+                <Image Source="{Binding Car.PictureFilePath}" Aspect="AspectFill"/>
+            </cd:CoordinatorLayout.TopView>
+            <cd:CoordinatorLayout.BottomView>
+                <Label Text="  q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew"/>
+            </cd:CoordinatorLayout.BottomView>
+        </cd:CoordinatorLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -9,13 +9,14 @@ namespace Ymmv
         public AppShell()
         {
             InitializeComponent();
-            
-            Routing.RegisterRoute(nameof(NewCarPage), typeof(NewCarPage));
+
+            Routing.RegisterRoute($"{nameof(NewCarPage)}", typeof(NewCarPage));
+            Routing.RegisterRoute($"{nameof(CarDetailsPage)}", typeof(CarDetailsPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            //await Shell.Current.GoToAsync("//LoginPage");
         }
     }
 }

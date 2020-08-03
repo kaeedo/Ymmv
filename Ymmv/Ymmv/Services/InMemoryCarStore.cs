@@ -35,6 +35,7 @@ namespace Ymmv.Services
 
         public Task<bool> AddCarAsync(Car car)
         {
+            car.Id = cars.Count + 1;
             cars.Add(car);
 
             return Task.FromResult(true);

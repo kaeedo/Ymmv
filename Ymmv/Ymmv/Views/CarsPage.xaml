@@ -13,7 +13,9 @@
     <RefreshView x:DataType="local:CarsViewModel" Command="{Binding LoadCarsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="CarsListView"
                         ItemsSource="{Binding Cars}"
-                        SelectionMode="None">
+                        SelectionMode="Single"  
+                        SelectionChangedCommand="{Binding CarTapped}"
+                        SelectedItem="{Binding SelectedCar, Mode=TwoWay}">
             <!--<CollectionView.ItemsSource>
                 <x:Array Type="{x:Type model:Car}">
                     <model:Car PictureFilePath="luggage.jpg" Make="erth" Model="etynt" />
@@ -40,13 +42,6 @@
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
                                 </StackLayout>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:CarsViewModel}}, Path=ItemTapped}"
-                                        CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>
                             </StackLayout>
                         </Frame>
                     </StackLayout>

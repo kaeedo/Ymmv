@@ -57,6 +57,7 @@ namespace Ymmv.ViewModels
             try
             {
                 Cars.Clear();
+                SelectedCar = null;
                 var cars = await _carStore.GetCarsAsync(true);
                 foreach (var car in cars)
                 {
@@ -75,7 +76,7 @@ namespace Ymmv.ViewModels
 
         private async void OnAddCar(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewCarPage));
+            await Shell.Current.GoToAsync($"{nameof(NewCarPage)}");
             await ExecuteLoadCarsCommand();
         }
 
