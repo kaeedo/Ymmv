@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ymmv.Views.CarsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Ymmv.ViewModels"  
+             xmlns:model="clr-namespace:Ymmv.Models">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCarCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView x:DataType="local:CarsViewModel" Command="{Binding LoadCarsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="CarsListView"
+                        ItemsSource="{Binding Cars}"
+                        SelectionMode="None">
+            <!--<CollectionView.ItemsSource>
+                <x:Array Type="{x:Type model:Car}">
+                    <model:Car PictureFilePath="luggage.jpg" Make="erth" Model="etynt" />
+                    <model:Car PictureFilePath="luggage.jpg" Make="eyj" Model="ntyn" />
+                    <model:Car PictureFilePath="luggage.jpg" Make="tym" Model="teyj" />
+                </x:Array>
+            </CollectionView.ItemsSource>-->
+            <CollectionView.EmptyView>
+                <StackLayout>
+                    <Label Text="No cars added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="20, 10">
+                        <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
+                            <StackLayout x:DataType="model:Car" Orientation="Horizontal">
+                                <Image Source="{Binding PictureFilePath}" Aspect="AspectFit" HeightRequest="100"/>
+                                <StackLayout VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontSize="16"/>
+                                    <Label Text="{Binding LastRefeul}"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="13"/>
+                                </StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:CarsViewModel}}, Path=ItemTapped}"
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

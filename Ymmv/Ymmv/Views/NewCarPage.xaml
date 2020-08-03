@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ymmv.Views.NewCarPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Ymmv.ViewModels"
+             xmlns:model="clr-namespace:Ymmv.Models">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="Make" Text="{Binding Make, Mode=TwoWay}"/>
+            <Entry Placeholder="Model" Text="{Binding Model, Mode=TwoWay}"/>
+            <StackLayout Orientation="Horizontal" Padding="0, 0, 10, 0">
+                <Image 
+                    x:Name="Preview" 
+                    Source="{Binding ImagePreview}"
+                    HeightRequest="100"
+                    WidthRequest="200" />
+                <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+                    <Label
+                        HorizontalTextAlignment="End"
+                        FontSize="16"
+                        Text="Add photo"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Button 
+                            Text="Gallery" 
+                            Command="{Binding GalleryPictureCommand}" 
+                            HorizontalOptions="FillAndExpand" />
+                        <Button 
+                            Text="Camera" 
+                            Command="{Binding TakePictureCommand}" 
+                            HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="EndAndExpand">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>
