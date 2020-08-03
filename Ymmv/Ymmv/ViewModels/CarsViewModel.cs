@@ -27,6 +27,7 @@ namespace Ymmv.ViewModels
 
             Title = "All Cars";
             Cars = new ObservableCollection<Car>();
+
             LoadCarsCommand = new Command(async () => await ExecuteLoadCarsCommand());
 
             CarTapped = new Command<Car>(OnCarSelected);

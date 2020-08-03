@@ -6,13 +6,65 @@
              xmlns:local="clr-namespace:Ymmv.ViewModels"
              xmlns:model="clr-namespace:Ymmv.Models" 
              xmlns:cd="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCarCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <cd:CoordinatorLayout InitialExpansionState="Expanded">
             <cd:CoordinatorLayout.TopView>
                 <Image Source="{Binding Car.PictureFilePath}" Aspect="AspectFill"/>
             </cd:CoordinatorLayout.TopView>
             <cd:CoordinatorLayout.BottomView>
-                <Label Text="  q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew q78 rq78 qewr80 rqewq rew rew0 rew rqew qrewb70 rqew rqew7 rqew rqew rqew rqew rqew rqewqre w rqe rqewq rewb780 rqew q0 rqe rqew rqew7b80 rqew780 qrew0 rqew"/>
+                <RefreshView
+                    x:DataType="local:CarDetailsViewModel" 
+                    Command="{Binding LoadFuelServicesCommand}" 
+                    IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Car:"/>
+                            <Label Text="{Binding Title}" Grid.Column="2"/>
+
+                            <Label Text="Average:" Grid.Row="2" />
+                            <Label Text="{Binding Average}" Grid.Column="2"/>
+
+                            <Label Text="Median:" Grid.Row="3"/>
+                            <Label Text="{Binding Median}" Grid.Column="2"/>
+                        </Grid>
+                        <CollectionView x:Name="CarsListView"
+                            ItemsSource="{Binding FuelServices}">
+                            <CollectionView.EmptyView>
+                                <StackLayout>
+                                    <Label Text="No fuel services added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="20, 10">
+                                        <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
+                                            <StackLayout x:DataType="model:Car" Orientation="Horizontal">
+                                                <Label Text="{Binding Name}"
+                                                   Style="{DynamicResource ListItemTextStyle}"
+                                                   FontSize="16"/>
+                                                <Label Text="{Binding LastRefeul}"
+                                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                                   FontSize="13"/>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </RefreshView>
             </cd:CoordinatorLayout.BottomView>
         </cd:CoordinatorLayout>
     </ContentPage.Content>

@@ -1,6 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Xamarin.Forms;
 using Ymmv.Models;
-using Ymmv.Services;
 
 namespace Ymmv.ViewModels
 {
@@ -8,13 +10,45 @@ namespace Ymmv.ViewModels
     {
         public Car Car { get; }
 
-        public string ImagePreview { get; set; }
+        public ObservableCollection<FuelService> FuelServices { get; }
+        public Command LoadFuelServicesCommand { get; }
 
         public CarDetailsViewModel(Car car)
         {
             Car = car;
             Title = Car.Name;
-            ImagePreview = Car.PictureFilePath;
+
+            FuelServices = new ObservableCollection<FuelService>();
+
+            LoadFuelServicesCommand = new Command(ExecuteLoadFuelServicesCommand);
+        }
+
+        public void OnAppearing()
+        {
+            IsBusy = true;
+        }
+
+        private void ExecuteLoadFuelServicesCommand()
+        {
+            IsBusy = true;
+
+            try
+            {
+                FuelServices.Clear();
+                var fuelServices = Car.FuelServices;
+                foreach (var fuelService in fuelServices)
+                {
+                    FuelServices.Add(fuelService);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
