@@ -11,7 +11,6 @@ using Ymmv.Views;
 
 namespace Ymmv.ViewModels
 {
-    //[QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class CarsViewModel : BaseViewModel
     {
         private Car _selectedCar;
@@ -91,7 +90,7 @@ namespace Ymmv.ViewModels
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
 
             // This will push the ItemDetailPage onto the navigation stack
-            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={car.Id}");
+            await Shell.Current.GoToAsync($"{nameof(CarDetailsPage)}?{nameof(Car.Id)}={car.Id}");
         }
     }
 }
