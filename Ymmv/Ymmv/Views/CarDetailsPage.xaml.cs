@@ -1,11 +1,9 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using Ymmv.Services;
 using Ymmv.ViewModels;
 
 namespace Ymmv.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     [QueryProperty(nameof(SelectedCarId), nameof(Models.Car.Id))]
     public partial class CarDetailsPage : ContentPage
     {

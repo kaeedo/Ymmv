@@ -11,3 +11,6 @@ namespace Ymmv.Models
         public double LifetimeKilometers { get; set; }
     }
 }
+
+// amount
+// unit

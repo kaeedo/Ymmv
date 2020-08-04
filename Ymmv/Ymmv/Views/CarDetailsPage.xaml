@@ -6,8 +6,36 @@
              xmlns:local="clr-namespace:Ymmv.ViewModels"
              xmlns:model="clr-namespace:Ymmv.Models" 
              xmlns:cd="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms">
+    <ContentPage.Resources>
+        <x:Array Type="{x:Type model:FuelService}" x:Key="merius">
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+            <model:FuelService  Liters="23" Kilometers="234" />
+            <model:FuelService  Liters="63" Kilometers="342" />
+            <model:FuelService Liters="31" Kilometers="364" />
+        </x:Array>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddCarCommand}" />
+        <ToolbarItem Text="New Refuel" Command="{Binding AddFuelServiceCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <cd:CoordinatorLayout InitialExpansionState="Expanded">
@@ -15,56 +43,54 @@
                 <Image Source="{Binding Car.PictureFilePath}" Aspect="AspectFill"/>
             </cd:CoordinatorLayout.TopView>
             <cd:CoordinatorLayout.BottomView>
-                <RefreshView
-                    x:DataType="local:CarDetailsViewModel" 
-                    Command="{Binding LoadFuelServicesCommand}" 
-                    IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-                    <StackLayout>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Text="Car:"/>
-                            <Label Text="{Binding Title}" Grid.Column="2"/>
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Car:"/>
+                        <Label Text="{Binding Title}" Grid.Column="2"/>
 
-                            <Label Text="Average:" Grid.Row="2" />
-                            <Label Text="{Binding Average}" Grid.Column="2"/>
+                        <Label Text="Average:" Grid.Row="2" />
+                        <!--<Label Text="{Binding Average}" Grid.Column="2"/>-->
 
-                            <Label Text="Median:" Grid.Row="3"/>
-                            <Label Text="{Binding Median}" Grid.Column="2"/>
-                        </Grid>
-                        <CollectionView x:Name="CarsListView"
-                            ItemsSource="{Binding FuelServices}">
-                            <CollectionView.EmptyView>
-                                <StackLayout>
-                                    <Label Text="No fuel services added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
-                                </StackLayout>
-                            </CollectionView.EmptyView>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Padding="20, 10">
-                                        <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
-                                            <StackLayout x:DataType="model:Car" Orientation="Horizontal">
-                                                <Label Text="{Binding Name}"
+                        <Label Text="Median:" Grid.Row="3"/>
+                        <!--<Label Text="{Binding Median}" Grid.Column="2"/>-->
+                    </Grid>
+                    <StackLayout x:Name="CarsListView"
+                             BindableLayout.ItemsSource="{StaticResource merius}">
+                        <!--BindableLayout.ItemsSource="{Binding FuelServices}">-->
+
+                        <BindableLayout.EmptyView>
+                            <StackLayout>
+                                <Label Text="No fuel services added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
+                            </StackLayout>
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="20, 10">
+                                    <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
+                                        <StackLayout x:DataType="model:FuelService" Orientation="Horizontal">
+                                            <Label Text="{Binding Liters}"
                                                    Style="{DynamicResource ListItemTextStyle}"
                                                    FontSize="16"/>
-                                                <Label Text="{Binding LastRefeul}"
+                                            <Label Text="{Binding Kilometers}"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    FontSize="13"/>
-                                        </Frame>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </StackLayout>
-                </RefreshView>
+                </StackLayout>
             </cd:CoordinatorLayout.BottomView>
         </cd:CoordinatorLayout>
     </ContentPage.Content>

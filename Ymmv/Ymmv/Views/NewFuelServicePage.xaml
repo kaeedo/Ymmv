@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ymmv.Views.NewFuelServicePage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:Ymmv.ViewModels"
+             xmlns:model="clr-namespace:Ymmv.Models" 
+             xmlns:converters="clr-namespace:Ymmv.Converters">
+    <ContentPage.Resources>
+        <converters:IntEnumConverter x:Key="intEnumConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="2*, 1*" RowDefinitions="50, 50, *">
+            <Entry Keyboard="Numeric" Placeholder="Amount fueled" Text="{Binding FuelAmount}" />
+            <Picker Grid.Column="1"
+                    ItemsSource="{Binding FuelUnits}"
+                    SelectedIndex="{Binding FuelUnit, Converter={StaticResource intEnumConverter}}"/>
+            <Entry Keyboard="Numeric" Placeholder="Distance driven" Grid.Row="1" Text="{Binding DistanceDriven}"/>
+            <Picker Grid.Row="1" Grid.Column="1" 
+                    ItemsSource="{Binding DistanceUnits}"
+                    SelectedIndex="{Binding DistanceUnit, Converter={StaticResource intEnumConverter}}" />
+            <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="EndAndExpand" Grid.Row="2" Grid.ColumnSpan="2">
+                <Button Text="Cancel" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}"/>
+                <Button Text="Save" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>

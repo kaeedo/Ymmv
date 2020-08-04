@@ -1,19 +1,18 @@
 ﻿
 using Ymmv.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Ymmv.Views
 {
-    public partial class NewCarPage : ContentPage
+    public partial class NewFuelServicePage : ContentPage
     {
-        NewCarViewModel _viewModel;
+        NewFuelServiceViewModel _viewModel;
 
-        public NewCarPage()
+        public NewFuelServicePage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new NewCarViewModel();
+            BindingContext = _viewModel = new NewFuelServiceViewModel();
         }
 
         protected override void OnAppearing()

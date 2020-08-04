@@ -9,7 +9,7 @@ namespace Ymmv.Models
         public string Make { get; set; }
         public string Model { get; set; }
         public string PictureFilePath { get; set; }
-        public IList<FuelService> FuelServices { get; set; }
+        public IList<FuelService> FuelServices { get; } = new List<FuelService>();
 
         public string Name => $"{Make} {Model}";
 

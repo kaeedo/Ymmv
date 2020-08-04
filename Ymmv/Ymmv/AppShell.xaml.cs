@@ -10,6 +10,7 @@ namespace Ymmv
         {
             InitializeComponent();
 
+            Routing.RegisterRoute($"{nameof(NewFuelServicePage)}", typeof(NewFuelServicePage));
             Routing.RegisterRoute($"{nameof(NewCarPage)}", typeof(NewCarPage));
             Routing.RegisterRoute($"{nameof(CarDetailsPage)}", typeof(CarDetailsPage));
         }

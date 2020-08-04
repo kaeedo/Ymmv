@@ -10,7 +10,7 @@
         <ToolbarItem Text="Add" Command="{Binding AddCarCommand}" />
     </ContentPage.ToolbarItems>
 
-    <RefreshView x:DataType="local:CarsViewModel" Command="{Binding LoadCarsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView Command="{Binding LoadCarsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="CarsListView"
                         ItemsSource="{Binding Cars}"
                         SelectionMode="Single"  

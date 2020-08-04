@@ -19,7 +19,6 @@ namespace Ymmv.ViewModels
         public ObservableCollection<Car> Cars { get; }
         public Command LoadCarsCommand { get; }
         public Command AddCarCommand { get; }
-        public Command<Car> CarTapped { get; }
 
         public CarsViewModel()
         {
@@ -30,9 +29,7 @@ namespace Ymmv.ViewModels
 
             LoadCarsCommand = new Command(async () => await ExecuteLoadCarsCommand());
 
-            CarTapped = new Command<Car>(OnCarSelected);
-
-            AddCarCommand = new Command(OnAddCar);
+            AddCarCommand = new Command(async () => await OnAddCar());
         }
 
         public void OnAppearing()
@@ -75,7 +72,7 @@ namespace Ymmv.ViewModels
             }
         }
 
-        private async void OnAddCar(object obj)
+        private async Task OnAddCar()
         {
             await Shell.Current.GoToAsync($"{nameof(NewCarPage)}");
             await ExecuteLoadCarsCommand();
