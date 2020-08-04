@@ -10,16 +10,24 @@ namespace Ymmv.ViewModels
     public class NewFuelServiceViewModel : BaseViewModel
     {
         private readonly ICarStore _carStore;
+        private readonly Car _car;
 
         private DistanceUnit _distanceUnit;
         private FuelUnit _fuelUnit;
         private double? _fuelAmount;
         private double? _distanceDriven;
+        private DateTimeOffset _fuelDate;
 
         public Command TakePictureCommand { get; }
         public Command GalleryPictureCommand { get; }
         public Command CancelCommand { get; }
         public Command SaveCommand { get; }
+
+        public DateTimeOffset FuelDate
+        {
+            get => _fuelDate;
+            set => SetProperty(ref _fuelDate, value);
+        }
 
         public FuelUnit FuelUnit
         {
@@ -55,14 +63,16 @@ namespace Ymmv.ViewModels
             get => Enum.GetNames(typeof(DistanceUnit)).ToList();
         }
 
-        public NewFuelServiceViewModel()
+        public NewFuelServiceViewModel(Car car)
         {
             Title = "Add Fuel Service";
 
-            _carStore = DependencyService.Get<ICarStore>();
+            _car = car;
 
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
+
+            FuelDate = DateTime.Now;
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -80,13 +90,36 @@ namespace Ymmv.ViewModels
 
         private async void OnSave()
         {
-            var car = new Car
+            var fuelService = new FuelService
             {
+                ServiceDate = _fuelDate,
+                Kilometers = GetKilometers(),
+                Liters = GetLiters()
             };
 
-            await _carStore.AddCarAsync(car);
+            _car.FuelServices.Add(fuelService);
 
             await Shell.Current.GoToAsync("..");
+        }
+
+        private double GetKilometers()
+        {
+            if (_distanceUnit == DistanceUnit.Kilometers)
+            {
+                return _distanceDriven.Value;
+            }
+
+            return _distanceDriven.Value * 1.609344;
+        }
+
+        private double GetLiters()
+        {
+            if (_fuelUnit == FuelUnit.Liters)
+            {
+                return _fuelAmount.Value;
+            }
+
+            return _fuelAmount.Value * 4.54609;
         }
     }
 }

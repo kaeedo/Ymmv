@@ -13,10 +13,14 @@ namespace Ymmv.Views
         {
             set
             {
+                if (_viewModel != null)
+                {
+                    return;
+                }
                 var carStore = DependencyService.Get<ICarStore>();
                 var car = carStore.GetCarAsync(int.Parse(value)).GetAwaiter().GetResult();
 
-                BindingContext = _viewModel ?? (_viewModel = new CarDetailsViewModel(car));
+                BindingContext = _viewModel = new CarDetailsViewModel(car);
             }
         }
 

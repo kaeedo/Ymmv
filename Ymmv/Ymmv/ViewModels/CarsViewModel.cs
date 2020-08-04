@@ -29,7 +29,7 @@ namespace Ymmv.ViewModels
 
             LoadCarsCommand = new Command(async () => await ExecuteLoadCarsCommand());
 
-            AddCarCommand = new Command(async () => await OnAddCar());
+            AddCarCommand = new Command(ExecureAddCarCommand);
         }
 
         public void OnAppearing()
@@ -72,7 +72,7 @@ namespace Ymmv.ViewModels
             }
         }
 
-        private async Task OnAddCar()
+        private async void ExecureAddCarCommand(object obj)
         {
             await Shell.Current.GoToAsync($"{nameof(NewCarPage)}");
             await ExecuteLoadCarsCommand();
