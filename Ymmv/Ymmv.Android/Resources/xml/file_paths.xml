@@ -3,6 +3,6 @@
 
     <external-path
         name="my_images"
-        path="Android/data/dev.hashset.cargas/files/Pictures" />
+        path="Android/data/dev.hashset.ymmv/files/Pictures" />
 
 </paths>

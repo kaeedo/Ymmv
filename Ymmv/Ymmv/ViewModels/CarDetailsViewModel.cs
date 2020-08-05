@@ -12,38 +12,26 @@ namespace Ymmv.ViewModels
 {
     public class CarDetailsViewModel : BaseViewModel
     {
+        private double _average;
+        private double _median;
+
         public Car Car { get; }
         public ObservableCollection<FuelService> FuelServices { get; }
         public Command LoadFuelServicesCommand { get; }
         public Command AddFuelServiceCommand { get; }
 
-        public double Average 
-        { 
-            get
-            {
-                if (Car.FuelServices == null || !Car.FuelServices.Any())
-                {
-                    return 0.0;
-                }
-
-                return Car.FuelServices.Sum(fs => fs.LitersPer100Kilometers) / Car.FuelServices.Count;
-            } 
+        public double Average
+        {
+            get => CalculateAverage();
+            set => SetProperty(ref _average, value);
         }
+
+       
 
         public double Median
         {
-            get
-            {
-                if (Car.FuelServices == null || !Car.FuelServices.Any())
-                {
-                    return 0.0;
-                }
-
-                var values = Car.FuelServices.Select(fs => fs.LitersPer100Kilometers).OrderBy(x => x).ToList();
-                double mid = (values.Count - 1) / 2.0;
-                return (values[(int)(mid)] + values[(int)(mid + 0.5)]) / 2;
-
-            }
+            get => CalculateMedian();
+            set => SetProperty(ref _median, value);
         }
 
         public CarDetailsViewModel(Car car)
@@ -58,14 +46,17 @@ namespace Ymmv.ViewModels
             AddFuelServiceCommand = new Command(ExecuteAddFuelServiceCommand);
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
             IsBusy = true;
+            await ExecuteLoadFuelServicesCommand();
         }
 
         private async void ExecuteAddFuelServiceCommand(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(NewFuelServicePage)}?{nameof(Car.Id)}={Car.Id}");
+            var newFuelServicePage = new NewFuelServicePage(Car.Id);
+            await Shell.Current.Navigation.PushModalAsync(newFuelServicePage);
+            await newFuelServicePage.PageClosedTask;
             await ExecuteLoadFuelServicesCommand();
         }
 
@@ -81,6 +72,8 @@ namespace Ymmv.ViewModels
                 {
                     FuelServices.Add(fuelService);
                 }
+                Average = CalculateAverage();
+                Median = CalculateMedian();
             }
             catch (Exception ex)
             {
@@ -90,6 +83,27 @@ namespace Ymmv.ViewModels
             {
                 IsBusy = false;
             }
+        }
+        private double CalculateAverage()
+        {
+            if (FuelServices == null || !FuelServices.Any())
+            {
+                return 0.0;
+            }
+
+            return FuelServices.Sum(fs => fs.LitersPer100Kilometers) / FuelServices.Count;
+        }
+
+        private double CalculateMedian()
+        {
+            if (FuelServices == null || !FuelServices.Any())
+            {
+                return 0.0;
+            }
+
+            var values = FuelServices.Select(fs => fs.LitersPer100Kilometers).OrderBy(x => x).ToList();
+            double mid = (values.Count - 1) / 2.0;
+            return (values[(int)mid] + values[(int)(mid + 0.5)]) / 2;
         }
     }
 }

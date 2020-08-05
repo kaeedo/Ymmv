@@ -96,7 +96,7 @@ namespace Ymmv.ViewModels
 
         private async void OnCancel()
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
         private async void OnSave()
@@ -110,7 +110,7 @@ namespace Ymmv.ViewModels
 
             await _carStore.AddCarAsync(car);
 
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.Navigation.PopModalAsync();
         }
     }
 }

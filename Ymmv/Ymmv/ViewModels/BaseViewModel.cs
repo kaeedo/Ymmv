@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-using Xamarin.Forms;
-
-using Ymmv.Models;
-using Ymmv.Services;
-
 namespace Ymmv.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged

@@ -74,7 +74,9 @@ namespace Ymmv.ViewModels
 
         private async void ExecureAddCarCommand(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(NewCarPage)}");
+            var newCarPage = new NewCarPage();
+            await Shell.Current.Navigation.PushModalAsync(newCarPage);
+            await newCarPage.PageClosedTask;
             await ExecuteLoadCarsCommand();
         }
 

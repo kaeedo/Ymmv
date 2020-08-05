@@ -85,7 +85,7 @@ namespace Ymmv.ViewModels
 
         private async void OnCancel()
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
         private async void OnSave()
@@ -99,7 +99,7 @@ namespace Ymmv.ViewModels
 
             _car.FuelServices.Add(fuelService);
 
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
         private double GetKilometers()
