@@ -12,7 +12,7 @@ namespace Ymmv.Models
         public DateTime ServiceDate { get; set; }
         public double Liters { get; set; }
         public double Kilometers { get; set; }
-        public int LifeTimeKilometers { get; set; }
+        public int LifetimeKilometers { get; set; }
 
         [Ignore]
         public double LitersPer100Kilometers => (Liters / Kilometers) * 100;

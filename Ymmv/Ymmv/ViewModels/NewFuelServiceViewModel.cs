@@ -16,6 +16,7 @@ namespace Ymmv.ViewModels
         private FuelUnit _fuelUnit;
         private double? _fuelAmount;
         private double? _distanceDriven;
+        private int? _lifetimeDistance;
         private DateTime _fuelDate;
 
         public Command TakePictureCommand { get; }
@@ -44,6 +45,12 @@ namespace Ymmv.ViewModels
         public List<string> FuelUnits
         {
             get => Enum.GetNames(typeof(FuelUnit)).ToList();
+        }
+
+        public int? LifetimeDistance
+        {
+            get => _lifetimeDistance;
+            set => SetProperty(ref _lifetimeDistance, value);
         }
 
         public DistanceUnit DistanceUnit
@@ -96,6 +103,7 @@ namespace Ymmv.ViewModels
                 ServiceDate = _fuelDate,
                 Kilometers = GetKilometers(),
                 Liters = GetLiters(),
+                LifetimeKilometers = GetLifetimeKilometers(),
                 CarId = _car.Id
             };
 
@@ -122,6 +130,16 @@ namespace Ymmv.ViewModels
             }
 
             return _fuelAmount.Value * 3.7854;
+        }
+
+        private int GetLifetimeKilometers()
+        {
+            if (_distanceUnit == DistanceUnit.Kilometers)
+            {
+                return _lifetimeDistance.Value;
+            }
+
+            return (int)Math.Round(_lifetimeDistance.Value * 1.609344);
         }
     }
 }

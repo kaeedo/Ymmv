@@ -15,8 +15,8 @@ namespace Ymmv.ViewModels
     {
         private double _average;
         private double _median;
-        private int _lifeTimeKilometers;
-        private int _lifeTimeMiles;
+        private int _lifetimeKilometers;
+        private int _lifetimeMiles;
 
         public Car Car { get; }
 
@@ -38,16 +38,16 @@ namespace Ymmv.ViewModels
             set => SetProperty(ref _median, value);
         }
 
-        public int LifeTimeKilometers
+        public int LifetimeKilometers
         {
-            get => GetLifeTimeKilometers();
-            set => SetProperty(ref _lifeTimeKilometers, value);
+            get => GetLifetimeKilometers();
+            set => SetProperty(ref _lifetimeKilometers, value);
         }
 
-        public int LifeTimeMiles
+        public int LifetimeMiles
         {
-            get => GetLifeTimeMiles();
-            set => SetProperty(ref _lifeTimeMiles, value);
+            get => GetLifetimeMiles();
+            set => SetProperty(ref _lifetimeMiles, value);
         }
 
         public CarDetailsViewModel(Car car)
@@ -124,24 +124,24 @@ namespace Ymmv.ViewModels
             return (values[(int)mid] + values[(int)(mid + 0.5)]) / 2;
         }
 
-        private int GetLifeTimeKilometers()
+        private int GetLifetimeKilometers()
         {
             if (FuelServices == null || !FuelServices.Any())
             {
                 return 0;
             }
 
-            return FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifeTimeKilometers;
+            return FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifetimeKilometers;
         }
 
-        private int GetLifeTimeMiles()
+        private int GetLifetimeMiles()
         {
             if (FuelServices == null || !FuelServices.Any())
             {
                 return 0;
             }
 
-            return (int)Math.Round(FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifeTimeKilometers * 0.6213712);
+            return (int)Math.Round(FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifetimeKilometers * 0.6213712);
         }
     }
 }
