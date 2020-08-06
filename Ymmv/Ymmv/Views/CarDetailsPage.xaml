@@ -17,17 +17,22 @@
             </cd:CoordinatorLayout.TopView>
             <cd:CoordinatorLayout.BottomView>
                 <StackLayout>
-                    <Grid RowDefinitions="*, *, *, *" ColumnDefinitions="*, 3*">
+                    <Grid RowDefinitions="2*, *, *, *" ColumnDefinitions="*, *, *" Padding="5, 0" HeightRequest="150">
                         <Label Text="{Binding Title}" FontSize="42" Grid.ColumnSpan="2"/>
 
-                        <Label Text="Average:" FontSize="Subtitle" Grid.Row="1" VerticalOptions="Center" />
-                        <Label Text="{Binding Average, StringFormat='{0:N}'}" FontSize="Title" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" />
+                        <Label Text="Total Distance:" FontSize="Subtitle" Grid.Row="1" VerticalOptions="Center" />
+                        <Label Text="{Binding LifeTimeKilometers, StringFormat='{0} km', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"  />
+                        <Label Text="{Binding LifeTimeMiles, StringFormat='{0} m', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" />
+                        
+                        <Label Text="Average:" FontSize="Subtitle" Grid.Row="2" VerticalOptions="Center" />
+                        <Label Text="{Binding Average, StringFormat='{0:N} l/100km'}" FontSize="Medium" Grid.Row="2" Grid.Column="1" VerticalOptions="Center"  />
+                        <Label Text="{Binding Average, StringFormat='{0:N} mpg'}" FontSize="Medium" Grid.Row="2" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" />
 
-                        <Label Text="Median:" FontSize="Subtitle" Grid.Row="2" VerticalOptions="Center" />
-                        <Label Text="{Binding Median, StringFormat='{0:N}'} " FontSize="Title" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" />
+                        <Label Text="Median:" FontSize="Subtitle" Grid.Row="3" VerticalOptions="Center" />
+                        <Label Text="{Binding Median, StringFormat='{0:N} l/100km'} " FontSize="Medium" Grid.Row="3" Grid.Column="1" VerticalOptions="Center" />
+                        <Label Text="{Binding Median, StringFormat='{0:N} mpg'} " FontSize="Medium" Grid.Row="3" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" />
                     </Grid>
                     <StackLayout x:Name="CarsListView" BindableLayout.ItemsSource="{Binding FuelServices}">
-
                         <BindableLayout.EmptyView>
                             <StackLayout>
                                 <Label Text="No fuel services added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
@@ -35,32 +40,57 @@
                         </BindableLayout.EmptyView>
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Padding="10, 10">
+                                <StackLayout Padding="10, 0">
                                     <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
                                         <Grid x:DataType="model:FuelService" RowDefinitions="2*, *, *" ColumnDefinitions="*, *, *, *">
-                                            <Label Grid.ColumnSpan="2"
-                                           Text="{Binding LitersPer100Kilometers, StringFormat='{0:N} l/100km'}"
-                                           Style="{DynamicResource ListItemTextStyle}"
-                                           FontSize="16"/>
-                                            <Label Grid.Column="3"
-                                           Text="{Binding ServiceDate, StringFormat='{0:dd MMM yyyy}'}"
-                                           HorizontalOptions="End"/>
+                                            <FlexLayout Grid.ColumnSpan="4" JustifyContent="SpaceBetween" HorizontalOptions="FillAndExpand">
+                                                <Label
+                                                   Text="{Binding LitersPer100Kilometers, StringFormat='{0:N} l/100km'}"
+                                                   Style="{DynamicResource ListItemTextStyle}"
+                                                   FontSize="16"/>
+                                                <Label
+                                                   Text="{Binding MilesPerGallon, StringFormat='{0:N} mpg'}"
+                                                   Style="{DynamicResource ListItemTextStyle}"
+                                                   FontSize="16"/>
+                                                <Label
+                                                   Text="{Binding ServiceDate, StringFormat='{0:dd MMM yyyy}'}"
+                                                   HorizontalOptions="End"/>
+                                            </FlexLayout>
                                             <Label Grid.Row="1"
-                                           Text="Kilometers"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="13"/>
+                                               Text="Kilometers"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="13"/>
                                             <Label Grid.Row="1" Grid.Column="1"
-                                           Text="{Binding Kilometers}"
-                                           Style="{DynamicResource ListItemTextStyle}"
-                                           FontSize="16"/>
+                                               Text="{Binding Kilometers, StringFormat='{0:N}'}"
+                                               Style="{DynamicResource ListItemTextStyle}"
+                                               FontSize="16"/>
+                                            
                                             <Label Grid.Row="1" Grid.Column="2"
-                                           Text="Liters"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="13"/>
+                                               Text="Liters"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="13"/>
                                             <Label Grid.Row="1" Grid.Column="3"
-                                           Text="{Binding Liters}"
-                                           Style="{DynamicResource ListItemTextStyle}"
-                                           FontSize="16"/>
+                                               Text="{Binding Liters, StringFormat='{0:N}'}"
+                                               Style="{DynamicResource ListItemTextStyle}"
+                                               FontSize="16"/>
+
+                                            <Label Grid.Row="2"
+                                               Text="Miles"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="13"/>
+                                            <Label Grid.Row="2" Grid.Column="1"
+                                               Text="{Binding Miles, StringFormat='{0:N}'}"
+                                               Style="{DynamicResource ListItemTextStyle}"
+                                               FontSize="16"/>
+
+                                            <Label Grid.Row="2" Grid.Column="2"
+                                               Text="Gallons"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="13"/>
+                                            <Label Grid.Row="2" Grid.Column="3"
+                                               Text="{Binding Gallons, StringFormat='{0:N}'}"
+                                               Style="{DynamicResource ListItemTextStyle}"
+                                               FontSize="16"/>
                                         </Grid>
                                     </Frame>
                                 </StackLayout>

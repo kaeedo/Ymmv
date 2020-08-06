@@ -56,7 +56,8 @@ namespace Ymmv.ViewModels
             {
                 Cars.Clear();
                 SelectedCar = null;
-                var cars = await _carStore.GetCarsAsync(true);
+                var cars = await _carStore.GetCarsAsync();
+
                 foreach (var car in cars)
                 {
                     Cars.Add(car);

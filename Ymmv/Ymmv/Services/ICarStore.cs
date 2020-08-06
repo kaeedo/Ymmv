@@ -10,6 +10,6 @@ namespace Ymmv.Services
         //Task<bool> UpdateItemAsync(T item);
         //Task<bool> DeleteItemAsync(string id);
         Task<Car> GetCarAsync(int id);
-        Task<IEnumerable<Car>> GetCarsAsync(bool forceRefresh = false);
+        Task<List<Car>> GetCarsAsync();
     }
 }

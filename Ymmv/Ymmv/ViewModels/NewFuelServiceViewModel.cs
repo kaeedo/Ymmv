@@ -4,26 +4,26 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Xamarin.Forms.Internals;
 
 namespace Ymmv.ViewModels
 {
     public class NewFuelServiceViewModel : BaseViewModel
     {
-        private readonly ICarStore _carStore;
         private readonly Car _car;
-
+        private readonly IFuelServiceStore _fuelServiceStore;
         private DistanceUnit _distanceUnit;
         private FuelUnit _fuelUnit;
         private double? _fuelAmount;
         private double? _distanceDriven;
-        private DateTimeOffset _fuelDate;
+        private DateTime _fuelDate;
 
         public Command TakePictureCommand { get; }
         public Command GalleryPictureCommand { get; }
         public Command CancelCommand { get; }
         public Command SaveCommand { get; }
 
-        public DateTimeOffset FuelDate
+        public DateTime FuelDate
         {
             get => _fuelDate;
             set => SetProperty(ref _fuelDate, value);
@@ -68,6 +68,7 @@ namespace Ymmv.ViewModels
             Title = "Add Fuel Service";
 
             _car = car;
+            _fuelServiceStore = DependencyService.Get<IFuelServiceStore>();
 
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -94,10 +95,11 @@ namespace Ymmv.ViewModels
             {
                 ServiceDate = _fuelDate,
                 Kilometers = GetKilometers(),
-                Liters = GetLiters()
+                Liters = GetLiters(),
+                CarId = _car.Id
             };
 
-            _car.FuelServices.Add(fuelService);
+            await _fuelServiceStore.AddFuelServiceAsync(fuelService);
 
             await Shell.Current.Navigation.PopModalAsync();
         }
@@ -119,7 +121,7 @@ namespace Ymmv.ViewModels
                 return _fuelAmount.Value;
             }
 
-            return _fuelAmount.Value * 4.54609;
+            return _fuelAmount.Value * 3.7854;
         }
     }
 }
