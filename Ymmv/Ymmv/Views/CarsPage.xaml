@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Ymmv.Views.CarsPage"
+             x:Name="carsViewModel"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:Ymmv.ViewModels"  
              xmlns:model="clr-namespace:Ymmv.Models">
@@ -16,13 +17,6 @@
                         SelectionMode="Single"  
                         SelectionChangedCommand="{Binding CarTapped}"
                         SelectedItem="{Binding SelectedCar, Mode=TwoWay}">
-            <!--<CollectionView.ItemsSource>
-                <x:Array Type="{x:Type model:Car}">
-                    <model:Car PictureFilePath="luggage.jpg" Make="erth" Model="etynt" />
-                    <model:Car PictureFilePath="luggage.jpg" Make="eyj" Model="ntyn" />
-                    <model:Car PictureFilePath="luggage.jpg" Make="tym" Model="teyj" />
-                </x:Array>
-            </CollectionView.ItemsSource>-->
             <CollectionView.EmptyView>
                 <StackLayout>
                     <Label Text="No cars added yet" HorizontalOptions="CenterAndExpand" Padding="0, 50, 0, 0" FontSize="Large"/>
@@ -30,21 +24,42 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="20, 10">
-                        <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
-                            <StackLayout x:DataType="model:Car" Orientation="Horizontal">
-                                <Image Source="{Binding PictureFilePath}" Aspect="AspectFit" HeightRequest="100"/>
-                                <StackLayout VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Edit"
+                                   BackgroundColor="LightGreen"
+                                           Command="{Binding Source={x:Reference carsViewModel}, Path=BindingContext.EditCarCommand}"
+                                           CommandParameter="{Binding .}"
+                                    />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Delete"
+                                   BackgroundColor="LightPink"
+                                           Command="{Binding Source={x:Reference carsViewModel}, Path=BindingContext.DeleteCarCommand}"
+                                           CommandParameter="{Binding .}"
+                                   />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <StackLayout Padding="20, 10">
+                            <Frame BorderColor="Gray" Padding="10" CornerRadius="10"  >
+                                <StackLayout x:DataType="model:Car" Orientation="Horizontal">
+                                    <Image Source="{Binding PictureFilePath}" Aspect="AspectFit" HeightRequest="100"/>
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontSize="16"/>
-                                    <Label Text="{Binding LastRefeul}"
+                                        <Label Text="{Binding LastRefeul, FallbackValue='No refuels added yet', StringFormat='Last Refuel: {0:dd MMM yyyy}'}"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="13"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </Frame>
-                    </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

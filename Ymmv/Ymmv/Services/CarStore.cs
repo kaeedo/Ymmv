@@ -21,6 +21,16 @@ namespace Ymmv.Services
             return car.Id;
         }
 
+        public Task UpdateCarAsync(Car car)
+        {
+            return _db.UpdateAsync(car);
+        }
+
+        public Task DeleteCarAsync(int id)
+        {
+            return _db.DeleteAsync<Car>(id);
+        }
+
         public Task<Car> GetCarAsync(int id)
         {
             var car = _db.Table<Car>().Where(c => c.Id == id).FirstOrDefaultAsync();

@@ -7,8 +7,8 @@ namespace Ymmv.Services
     public interface IFuelServiceStore
     {
         Task<int> AddFuelServiceAsync(FuelService fuelService);
-        //Task<bool> UpdateItemAsync(T item);
-        //Task<bool> DeleteItemAsync(string id);
+        Task UpdateFuelServiceAsync(FuelService fuelService);
+        Task DeleteFuelServiceAsync(FuelService fuelService);
         Task<FuelService> GetFuelServiceAsync(int id);
         Task<List<FuelService>> GetFuelServicesForCarAsync(int carId);
     }

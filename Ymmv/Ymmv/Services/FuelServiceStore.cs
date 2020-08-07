@@ -21,6 +21,16 @@ namespace Ymmv.Services
             return fuelService.Id;
         }
 
+        public Task UpdateFuelServiceAsync(FuelService fuelService)
+        {
+            return _db.UpdateAsync(fuelService);
+        }
+
+        public Task DeleteFuelServiceAsync(FuelService fuelService)
+        {
+            return _db.DeleteAsync<FuelService>(fuelService.Id);
+        }
+
         public Task<FuelService> GetFuelServiceAsync(int id)
         {
             var fuelService = _db.Table<FuelService>().Where(fs => fs.Id == id).FirstOrDefaultAsync();

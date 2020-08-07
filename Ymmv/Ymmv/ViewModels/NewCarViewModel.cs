@@ -14,13 +14,14 @@ namespace Ymmv.ViewModels
         private string _make;
         private string _model;
         private string _imagePreview;
+        private string _saveButtonText;
         private readonly ICarStore _carStore;
+        private Car _carToEdit;
 
         public Command TakePictureCommand { get; }
         public Command GalleryPictureCommand { get; }
         public Command CancelCommand { get; }
         public Command SaveCommand { get; }
-
 
         public string Make
         {
@@ -40,9 +41,16 @@ namespace Ymmv.ViewModels
             set => SetProperty(ref _imagePreview, value);
         }
 
+        public string SaveButtonText
+        {
+            get => _saveButtonText;
+            set => SetProperty(ref _saveButtonText, value);
+        }
+
         public NewCarViewModel()
         {
             Title = "Add Car";
+            _saveButtonText = "Save";
 
             _carStore = DependencyService.Get<ICarStore>();
 
@@ -50,6 +58,28 @@ namespace Ymmv.ViewModels
             GalleryPictureCommand = new Command(GalleryPicture);
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
+
+
+            this.PropertyChanged +=
+                (_, __) => SaveCommand.ChangeCanExecute();
+        }
+
+        public NewCarViewModel(Car car)
+        {
+            Title = "Edit Car";
+            _saveButtonText = "Update";
+
+            _carStore = DependencyService.Get<ICarStore>();
+            _carToEdit = car;
+
+            Make = _carToEdit.Make;
+            Model = _carToEdit.Model;
+            ImagePreview = _carToEdit.PictureFilePath;
+
+            TakePictureCommand = new Command(TakePicture);
+            GalleryPictureCommand = new Command(GalleryPicture);
+            CancelCommand = new Command(OnCancel);
+            SaveCommand = new Command(OnUpdate, ValidateSave);
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -109,6 +139,17 @@ namespace Ymmv.ViewModels
             };
 
             await _carStore.AddCarAsync(car);
+
+            await Shell.Current.Navigation.PopModalAsync();
+        }
+
+        private async void OnUpdate()
+        {
+            _carToEdit.Make = Make;
+            _carToEdit.Model = Model;
+            _carToEdit.PictureFilePath = ImagePreview;
+
+            await _carStore.UpdateCarAsync(_carToEdit);
 
             await Shell.Current.Navigation.PopModalAsync();
         }

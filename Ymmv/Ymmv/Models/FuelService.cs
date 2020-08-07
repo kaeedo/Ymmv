@@ -5,7 +5,7 @@ namespace Ymmv.Models
 {
     public class FuelService
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Unique]
         public int Id { get; set; }
         [Indexed]
         public int CarId { get; set; }

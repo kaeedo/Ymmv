@@ -35,7 +35,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="EndAndExpand">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" />
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" />
+                <Button Text="{Binding SaveButtonText, Mode=OneWay}" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand" />
             </StackLayout>
         </StackLayout>
         

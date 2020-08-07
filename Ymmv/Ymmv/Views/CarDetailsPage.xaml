@@ -21,8 +21,8 @@
                         <Label Text="{Binding Title}" FontSize="42" Grid.ColumnSpan="2"/>
 
                         <Label Text="Total Distance:" FontSize="Subtitle" Grid.Row="1" VerticalOptions="Center" />
-                        <Label Text="{Binding LifetimeKilometers, StringFormat='{0} km', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"  />
-                        <Label Text="{Binding LifetimeMiles, StringFormat='{0} m', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" />
+                        <Label Text="{Binding LifetimeKilometers, StringFormat='{0:N0} km', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"  />
+                        <Label Text="{Binding LifetimeMiles, StringFormat='{0:N0} m', Mode=OneWay}" FontSize="Medium" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" />
                         
                         <Label Text="Average:" FontSize="Subtitle" Grid.Row="2" VerticalOptions="Center" />
                         <Label Text="{Binding Average, StringFormat='{0:N} l/100km'}" FontSize="Medium" Grid.Row="2" Grid.Column="1" VerticalOptions="Center"  />

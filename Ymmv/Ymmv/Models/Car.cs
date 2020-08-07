@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SQLite;
 
@@ -6,25 +7,27 @@ namespace Ymmv.Models
 {
     public class Car
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Unique]
         public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string PictureFilePath { get; set; }
+        public FuelUnit PreferredFuelUnit { get; set; }
+        public DistanceUnit PreferredDistanceUnit { get; set; }
 
         [Ignore]
-        public IList<FuelService> FuelServices { get; } = new List<FuelService>();
+        public IList<FuelService> FuelServices { get; set; } = new List<FuelService>();
 
         [Ignore]
         public string Name => $"{Make} {Model}";
 
         [Ignore]
-        public string LastRefeul
+        public DateTime? LastRefeul
         {
             get
             {
-                var refuel = FuelServices?.OrderBy(fs => fs.ServiceDate).FirstOrDefault();
-                return refuel?.ServiceDate.ToString("d") ?? "No refuels added yet";
+                var refuel = FuelServices?.OrderByDescending(fs => fs.ServiceDate).FirstOrDefault();
+                return refuel?.ServiceDate;
             }
         }
     }

@@ -7,8 +7,8 @@ namespace Ymmv.Services
     public interface ICarStore
     {
         Task<int> AddCarAsync(Car car);
-        //Task<bool> UpdateItemAsync(T item);
-        //Task<bool> DeleteItemAsync(string id);
+        Task UpdateCarAsync(Car car);
+        Task DeleteCarAsync(int id);
         Task<Car> GetCarAsync(int id);
         Task<List<Car>> GetCarsAsync();
     }

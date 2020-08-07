@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,6 +58,7 @@ namespace Ymmv.ViewModels
             _fuelServiceStore = DependencyService.Get<IFuelServiceStore>();
 
             FuelServices = new ObservableCollection<FuelService>();
+            FuelServices.CollectionChanged += OnFuelServicesChanged;
             
             LoadFuelServicesCommand = new Command(async () => await ExecuteLoadFuelServicesCommand());
 
@@ -68,6 +69,14 @@ namespace Ymmv.ViewModels
         {
             IsBusy = true;
             await ExecuteLoadFuelServicesCommand();
+        }
+
+        private void OnFuelServicesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Average = CalculateAverage();
+            Median = CalculateMedian();
+            LifetimeKilometers = GetLifetimeKilometers();
+            LifetimeMiles = GetLifetimeMiles();
         }
 
         private async void ExecuteAddFuelServiceCommand(object obj)
@@ -85,13 +94,11 @@ namespace Ymmv.ViewModels
             try
             {
                 FuelServices.Clear();
-                var fuelServices = await _fuelServiceStore.GetFuelServicesForCarAsync(Car.Id);
+                var fuelServices = (await _fuelServiceStore.GetFuelServicesForCarAsync(Car.Id)).OrderByDescending(fs => fs.ServiceDate);
                 foreach (var fuelService in fuelServices)
                 {
                     FuelServices.Add(fuelService);
                 }
-                Average = CalculateAverage();
-                Median = CalculateMedian();
             }
             catch (Exception ex)
             {
@@ -131,7 +138,7 @@ namespace Ymmv.ViewModels
                 return 0;
             }
 
-            return FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifetimeKilometers;
+            return FuelServices.First().LifetimeKilometers;
         }
 
         private int GetLifetimeMiles()
@@ -141,7 +148,7 @@ namespace Ymmv.ViewModels
                 return 0;
             }
 
-            return (int)Math.Round(FuelServices.OrderByDescending(fs => fs.ServiceDate).First().LifetimeKilometers * 0.6213712);
+            return (int)Math.Round(FuelServices.First().LifetimeKilometers * 0.6213712);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Ymmv.ViewModels
     {
         private readonly Car _car;
         private readonly IFuelServiceStore _fuelServiceStore;
+        private readonly ICarStore _carStore;
         private DistanceUnit _distanceUnit;
         private FuelUnit _fuelUnit;
         private double? _fuelAmount;
@@ -76,11 +77,14 @@ namespace Ymmv.ViewModels
 
             _car = car;
             _fuelServiceStore = DependencyService.Get<IFuelServiceStore>();
+            _carStore = DependencyService.Get<ICarStore>();
 
             CancelCommand = new Command(OnCancel);
             SaveCommand = new Command(OnSave, ValidateSave);
 
             FuelDate = DateTime.Now;
+            FuelUnit = _car.PreferredFuelUnit;
+            DistanceUnit = _car.PreferredDistanceUnit;
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -106,6 +110,11 @@ namespace Ymmv.ViewModels
                 LifetimeKilometers = GetLifetimeKilometers(),
                 CarId = _car.Id
             };
+
+            _car.PreferredDistanceUnit = _distanceUnit;
+            _car.PreferredFuelUnit = _fuelUnit;
+
+            await _carStore.UpdateCarAsync(_car);
 
             await _fuelServiceStore.AddFuelServiceAsync(fuelService);
 

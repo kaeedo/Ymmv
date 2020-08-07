@@ -3,6 +3,7 @@ using Ymmv.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using Ymmv.Models;
 
 namespace Ymmv.Views
 {
@@ -19,6 +20,13 @@ namespace Ymmv.Views
             InitializeComponent();
 
             BindingContext = _viewModel = new NewCarViewModel();
+        }
+
+        public NewCarPage(Car car)
+        {
+            InitializeComponent();
+
+            BindingContext = _viewModel = new NewCarViewModel(car);
         }
 
         protected override void OnAppearing()
